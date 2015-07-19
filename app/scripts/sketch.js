@@ -51,11 +51,6 @@ function sketch(s) {
     document.getElementById('mousemass-value').innerHTML = mouseMassEl.value;
   }
 
-  function _togglePause() {
-    particleSys.togglePause();
-    $(this).toggleClass('is-active');
-  }
-
   s.setup = function() {
 
     s.createCanvas(
@@ -90,7 +85,10 @@ function sketch(s) {
     _updateMouseMass();
 
     // setup click handlers
-    $('.js-pause').on('click', _togglePause);
+    $('.js-pause').on('click', function() {
+      particleSys.togglePause();
+      $(this).toggleClass('is-active');
+    });
 
     $('.js-reset').on('click', function() {
       gravityEl.value = 1;
@@ -125,12 +123,6 @@ function sketch(s) {
 
     // prevent default
     // return false;
-  };
-
-  s.keyPressed = function() {
-    if (s.key === ' ') {
-      _togglePause();
-    }
   };
 
   s.windowResized = function() {
