@@ -63,10 +63,14 @@ function sketch(s) {
 
     particleSys = new ParticleSystem(config.particleSys);
 
+    // initialize gravity and mouse mass
+    _updateGravity();
+
     window.particleSys = particleSys;
 
     // mouse Particle
     particleSys.add(config.mouseParticle);
+    _updateMouseMass();
 
     for (let r = 50; r < s.height/2 - 200; r += 50) {
       for (let theta = 0; theta < 2*π; theta += 2*π/20) {
@@ -75,14 +79,12 @@ function sketch(s) {
 
         particleSys.add( {
           position: new Vector(x, y),
-          mass: 1000 * Math.sin(2*theta) + 1,
+          mass: 1000 * Math.sin(2*theta),
         });
       }
     }
 
-    // initialize gravity and mouse mass
-    _updateGravity();
-    _updateMouseMass();
+
 
     // setup click handlers
     $('.js-pause').on('click', function() {
@@ -91,7 +93,7 @@ function sketch(s) {
     });
 
     $('.js-reset').on('click', function() {
-      gravityEl.value = 1;
+      gravityEl.value = 0.5;
       mouseMassEl.value = 10;
       particleSys.removeAll();
       particleSys.add(config.mouseParticle);
@@ -110,7 +112,6 @@ function sketch(s) {
     });
 
   };
-
 
   s.draw = function() {
     s.background(0);

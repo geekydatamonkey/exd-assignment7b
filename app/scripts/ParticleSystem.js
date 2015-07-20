@@ -88,10 +88,15 @@ export default class ParticleSystem {
       let rVector = particleFeelingForce.getVectorTo(p).normalize();
 
       // accel due to gravity (magnitude)
-      let gAccel = this.gravitationalConstant/distSq * p.getMass();      
+      let gAccel = this.gravitationalConstant/distSq * p.getMass();
+
+      // limit it
+      // if (gAccel > this.maxAccel || -gAccel > this.maxAccel) {
+      //   gAccel = Math.sign(gAccel) * this.maxAccel;
+      // }
 
       // multiply our rVector by acceleration due to gravity, to create the gravitational acceleration
-      // vector and limit the maximum accel
+      // vector
       let gVector = rVector.mult(gAccel).limit(this.maxAccel);
 
       // add this new acceleration

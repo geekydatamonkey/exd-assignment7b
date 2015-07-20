@@ -95,9 +95,13 @@ export default class Particle {
   * color is determined by mag of acceleration
   * returns a number between min and max
   */
-  getHue(minHue = 127, maxHue = 255) {
+  getHue(minHue = 62/360*255, maxHue = 0) {
     let mag = this.acceleration.mag();
-    return this.sketch.map(mag, 0, 1, minHue, maxHue);
+    if ( this.mass >= 0 ) {
+      return this.sketch.map(mag, 0, this.maxAccel, minHue, maxHue);
+    } else {
+      return this.sketch.map(mag, 0, this.maxAccel, minHue, 253/360*255);
+    }
   }
 
   getMass() {
