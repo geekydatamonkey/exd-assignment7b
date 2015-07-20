@@ -84,8 +84,6 @@ function sketch(s) {
       }
     }
 
-
-
     // setup click handlers
     $('.js-pause').on('click', function() {
       particleSys.togglePause();
