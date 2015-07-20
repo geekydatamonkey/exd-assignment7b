@@ -110,11 +110,8 @@ export default class Particle {
   }
 
   getRadius() {
-
     let r = Math.log(Math.abs(this.getMass()));
-
-    // using abs allows negative mass
-    return Math.max(1, r);
+    return Math.max(r,1);
   }
 
   /**

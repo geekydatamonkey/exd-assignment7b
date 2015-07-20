@@ -99,8 +99,15 @@ function sketch(s) {
       _updateMouseMass();
     });
 
-    $('#gravity').on('change', _updateGravity);
-    $('#mouseMass').on('change', _updateMouseMass);
+    $('#gravity').on('input', _updateGravity);
+    $('#mouseMass').on('input', _updateMouseMass);
+
+    $('canvas').on('click', function() {
+      particleSys.add({
+        position: new Vector(s.mouseX, s.mouseY),
+        mass: mouseMassEl.value,
+      });
+    });
 
   };
 
@@ -110,19 +117,15 @@ function sketch(s) {
 
     // update mouse particle position
     particleSys.particles[0].position.set(s.mouseX, s.mouseY);
-
     particleSys.update().render();
 
   };
 
-  s.mousePressed = function() {
-    particleSys.add({
-      position: new Vector(s.mouseX, s.mouseY),
-      mass: Math.max(mouseMassEl.value,1),
-    });
-
-    // prevent default
-    // return false;
+  s.keyPressed = function() {
+    if (s.key === ' ') {
+      particleSys.togglePause();
+      $('.js-pause').toggleClass('is-active');
+    }
   };
 
   s.windowResized = function() {
